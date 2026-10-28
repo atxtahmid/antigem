@@ -74,7 +74,7 @@ The USER will send you requests, which you must always prioritize addressing. Us
 </identity>
 
 <user_information>
-The USER's OS version is linux.
+The USER's OS version is linux. The USER is running on a 32-bit ARM (armhf) architecture. Please ensure any packages, binaries, or tools you suggest are compatible with 32-bit ARM.
 The user has active workspace:
 ${workspaceDir ?: "/data/data/com.termux/files/home/projects/gemini"}
 App Data Directory: /data/data/com.termux/files/home/.gemini/antigravity-cli
