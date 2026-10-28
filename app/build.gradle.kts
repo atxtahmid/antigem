@@ -230,7 +230,7 @@ val buildAgyIdeBridge = tasks.register<Exec>("buildAgyIdeBridge") {
   workingDir = bridgeSourceDir.asFile
   environment("GOOS", "android")
   environment("GOARCH", "arm")
-  environment("CGO_ENABLED", "0")
+  environment("CGO_ENABLED", "1")
   commandLine("go", "build", "-ldflags=-s -w", "-o", binDir.file("agy_ide_bridge").asFile.absolutePath, "main.go")
 }
 
