@@ -21,18 +21,17 @@ jobs:
         with:
           go-version: '1.23'
 
-      # NEW: Setup the Android NDK for CGO cross-compilation
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
+        id: setup-ndk
         with:
           ndk-version: r26b
-          add-to-path: true
 
-      # NEW: Install the ARM GCC compiler for CGO
-      - name: Install GCC ARM Toolchain
+      # This step ensures the Android NDK compiler is in the system PATH 
+      # so Go can find the 'armv7a-linux-androideabi24-clang' command
+      - name: Add NDK to PATH
         run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc-arm-linux-gnueabihf
+          echo "${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin" >> $GITHUB_PATH
 
       - name: Grant Execute Permission
         run: chmod +x gradlew
