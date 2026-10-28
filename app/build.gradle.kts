@@ -27,6 +27,9 @@ android {
         targetSdk = 28
         versionCode = appVersionCode
         versionName = appVersionName
+        ndk {
+            abiFilters += listOf("armeabi-v7a")
+        }
     }
 
     signingConfigs {
@@ -226,7 +229,7 @@ val buildAgyIdeBridge = tasks.register<Exec>("buildAgyIdeBridge") {
 
   workingDir = bridgeSourceDir.asFile
   environment("GOOS", "android")
-  environment("GOARCH", "arm64")
+  environment("GOARCH", "arm")
   environment("CGO_ENABLED", "0")
   commandLine("go", "build", "-ldflags=-s -w", "-o", binDir.file("agy_ide_bridge").asFile.absolutePath, "main.go")
 }
