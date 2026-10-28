@@ -1793,7 +1793,7 @@ object LocalEnvironmentManager {
 
     private fun extractGlibcMinAsset(context: Context, prefixDir: File): Boolean {
         log("Checking for bundled minimal Glibc runtime...")
-        val assetName = "glibc-min-arm64.tar"
+        val assetName = "glibc-min-armhf.tar"
         val inStream = try {
             context.assets.open(assetName)
         } catch (e: Exception) {

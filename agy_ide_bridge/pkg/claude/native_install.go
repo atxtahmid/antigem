@@ -49,6 +49,8 @@ func nativePlatform() (string, error) {
 	switch runtime.GOARCH {
 	case "arm64":
 		return "linux-arm64", nil
+	case "arm":
+		return "linux-arm", nil
 	case "amd64":
 		return "linux-x64", nil
 	}
