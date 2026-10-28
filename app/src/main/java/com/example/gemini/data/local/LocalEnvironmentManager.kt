@@ -66,9 +66,9 @@ object LocalEnvironmentManager {
     const val HARDCODED_ROOTFS_ASSET = "bootrapz_2026-10-04.zip"
     const val HARDCODED_ROOTFS_SIZE_BYTES = 350 * 1024 * 1024L
 
-    const val UBUNTU_ROOTFS_URL = "https://github.com/termux/proot-distro/releases/download/v4.30.1/ubuntu-questing-aarch64-pd-v4.30.1.tar.xz"
+    const val UBUNTU_ROOTFS_URL = "https://github.com/termux/proot-distro/releases/download/v4.30.1/ubuntu-questing-armhf-pd-v4.30.1.tar.xz"
     const val UBUNTU_ROOTFS_TAG = "v4.30.1"
-    const val UBUNTU_ROOTFS_ASSET = "ubuntu-questing-aarch64-pd-v4.30.1.tar.xz"
+    const val UBUNTU_ROOTFS_ASSET = "ubuntu-questing-armhf-pd-v4.30.1.tar.xz"
     const val UBUNTU_ROOTFS_SIZE_BYTES = 35 * 1024 * 1024L
 
     private const val NOTIFICATION_CHANNEL_ID = "antigem_bootstrap_install"
@@ -515,7 +515,7 @@ object LocalEnvironmentManager {
                 |# Claude's updater only changes ~/.local/share/claude/versions and ~/.local/bin/claude, never this file.
                 |VERSIONS_DIR="$home/.local/share/claude/versions"
                 |GLIBC_LIB="$prefix/glibc/lib"
-                |LOADER="${'$'}GLIBC_LIB/ld-linux-aarch64.so.1"
+                |LOADER="${'$'}GLIBC_LIB/ld-linux-armhf.so.1"
                 |TARGET=""
                 |if [ -d "${'$'}VERSIONS_DIR" ]; then
                 |    for v in ${'$'}(ls -1 "${'$'}VERSIONS_DIR" 2>/dev/null | grep -E '^[0-9]+\.[0-9]+\.[0-9]+${'$'}' | sort -V -r); do
@@ -637,13 +637,13 @@ object LocalEnvironmentManager {
         val abis = Build.SUPPORTED_ABIS ?: emptyArray()
         for (abi in abis) {
             when {
-                abi.startsWith("arm64") || abi.equals("aarch64", ignoreCase = true) -> return "aarch64"
+                abi.startsWith("arm64") || abi.equals("armhf", ignoreCase = true) -> return "armhf"
                 abi.startsWith("armeabi") || abi.equals("arm", ignoreCase = true) -> return "arm"
                 abi.contains("x86_64") -> return "x86_64"
                 abi.contains("x86") || abi.equals("i686", ignoreCase = true) -> return "i686"
             }
         }
-        return "aarch64"
+        return "armhf"
     }
 
     fun getDeviceHardwareInfo(): DeviceHardwareInfo {
@@ -1856,7 +1856,7 @@ object LocalEnvironmentManager {
         val prefixDir = getPrefixDir(context)
         val glibcDir = File(prefixDir, "glibc")
         val glibcLib = File(glibcDir, "lib")
-        val ldLinux = File(glibcLib, "ld-linux-aarch64.so.1")
+        val ldLinux = File(glibcLib, "ld-linux-armhf.so.1")
 
         if (!ldLinux.exists()) {
             extractGlibcMinAsset(context, prefixDir)
@@ -2323,7 +2323,7 @@ All files created here persist inside the application.
                 "--kill-on-exit",
                 "--link2symlink",
                 "--sysvipc",
-                "--kernel-release=\\Linux\\localhost\\6.1.0\\2026.08\\aarch64\\localdomain\\-1\\",
+                "--kernel-release=\\Linux\\localhost\\6.1.0\\2026.08\\armhf\\localdomain\\-1\\",
                 "-L",
                 "--change-id=0:0",
                 "--rootfs=${ubuntuDir.absolutePath}",

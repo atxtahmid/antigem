@@ -162,7 +162,7 @@ class LocalPtySession(
                     "--kill-on-exit",
                     "--link2symlink",
                     "--sysvipc",
-                    "--kernel-release=\\Linux\\localhost\\6.1.0\\2026.08\\aarch64\\localdomain\\-1\\",
+                    "--kernel-release=\\Linux\\localhost\\6.1.0\\2026.08\\armhf\\localdomain\\-1\\",
                     "-L",
                     "--change-id=0:0",
                     "--rootfs=${ubuntuDir.absolutePath}",
