@@ -738,7 +738,7 @@ object LocalEnvironmentManager {
                 url = UBUNTU_ROOTFS_URL,
                 releaseTag = UBUNTU_ROOTFS_TAG,
                 assetName = UBUNTU_ROOTFS_ASSET,
-                arch = "arm64",
+                arch = "arm",
                 sizeBytes = UBUNTU_ROOTFS_SIZE_BYTES,
                 sizeFormatted = "~29 MB",
                 packageName = packageName

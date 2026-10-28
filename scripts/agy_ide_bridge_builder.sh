@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# antiGem Go IDE Server - Interactive Android ARM64 Builder & ADB Deployer
+# antiGem Go IDE Server - Interactive Android ARM (32-bit) Builder & ADB Deployer
 # ==============================================================================
 
 set -eo pipefail
@@ -58,14 +58,14 @@ fi
 echo -e "   ${GREEN}✔${NC} Source Path: ${DIM}$SERVER_DIR${NC}"
 
 # --- Compilation ---
-echo -e "\n${CYAN}🛠️  [2/4] Compiling Go Server for Android ARM64...${NC}"
-echo -e "   ${DIM}Target: GOOS=android GOARCH=arm64 (CGO_ENABLED=0)${NC}"
+echo -e "\n${CYAN}🛠️  [2/4] Compiling Go Server for Android ARM (32-bit)...${NC}"
+echo -e "   ${DIM}Target: GOOS=android GOARCH=arm (CGO_ENABLED=0)${NC}"
 
 START_TIME=$(date +%s%N 2>/dev/null || date +%s)
 
 (
     cd "$SERVER_DIR"
-    CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -ldflags="-s -w" -o "$OUTPUT_BINARY" main.go
+    CGO_ENABLED=0 GOOS=android GOARCH=arm go build -ldflags="-s -w" -o "$OUTPUT_BINARY" main.go
 )
 
 END_TIME=$(date +%s%N 2>/dev/null || date +%s)

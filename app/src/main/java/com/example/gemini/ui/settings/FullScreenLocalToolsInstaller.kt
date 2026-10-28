@@ -182,7 +182,7 @@ fun FullScreenLocalToolsInstaller(
                 text = when (installerState) {
                     is LocalInstallerState.Success -> if (isTermux) "Local Linux Tools Ready!" else "Ubuntu Container Ready!"
                     is LocalInstallerState.Error -> "Setup Encountered an Issue"
-                    is LocalInstallerState.Idle -> if (isTermux) "Initialize Linux Environment" else "Install Ubuntu Container (ARM64)"
+                    is LocalInstallerState.Idle -> if (isTermux) "Initialize Linux Environment" else "Install Ubuntu Container (32-bit ARM)"
                     is LocalInstallerState.Discovering -> if (isTermux) "Locating Latest Bootstrap..." else "Locating Ubuntu Rootfs..."
                     is LocalInstallerState.AwaitingConfirmation -> if (isTermux) "Confirm Bootstrap Installation" else "Confirm Ubuntu Installation"
                     is LocalInstallerState.Downloading -> "Downloading Toolchain..."
@@ -197,7 +197,7 @@ fun FullScreenLocalToolsInstaller(
 
             Text(
                 text = when (installerState) {
-                    is LocalInstallerState.Success -> if (isTermux) "Termux-compatible shell, coreutils & AGY tools are installed and ready." else "Ubuntu ARM64 container, bash, glibc & AGY tools are ready."
+                    is LocalInstallerState.Success -> if (isTermux) "Termux-compatible shell, coreutils & AGY tools are installed and ready." else "Ubuntu 32-bit ARM container, bash, glibc & AGY tools are ready."
                     is LocalInstallerState.Error -> "Failed to unpack rootfs. You can retry or pick a local ZIP archive."
                     is LocalInstallerState.Idle -> if (isTermux) "Select how you would like to set up the local Termux environment for AntiGem:" else "Select how you would like to set up the Ubuntu Linux container for AntiGem:"
                     is LocalInstallerState.Discovering -> "Checking releases for the latest verified rootfs archive."
@@ -377,7 +377,7 @@ fun FullScreenLocalToolsInstaller(
                                 Column(modifier = Modifier.weight(1f)) {
                                     Row(verticalAlignment = Alignment.CenterVertically) {
                                         Text(
-                                            text = if (isTermux) "Auto Download from GitHub" else "Ubuntu ARM64 Base (Light)",
+                                            text = if (isTermux) "Auto Download from GitHub" else "Ubuntu 32-bit ARM Base (Light)",
                                             fontSize = 14.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.onSurface
@@ -397,7 +397,7 @@ fun FullScreenLocalToolsInstaller(
                                         text = if (isTermux) {
                                             "Downloads verified Termux rootfs (~350MB) with preconfigured tools and environment."
                                         } else {
-                                            "Downloads official minimal Ubuntu ARM64 rootfs container with glibc, bash, and development tools."
+                                            "Downloads official minimal Ubuntu 32-bit ARM rootfs container with glibc, bash, and development tools."
                                         },
                                         fontSize = 12.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant

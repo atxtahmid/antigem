@@ -142,7 +142,7 @@ fun LocalToolsInstallDialog(
                     text = when (installerState) {
                         is LocalInstallerState.Success -> if (isTermux) "Local Tools Ready!" else "Ubuntu Container Ready!"
                         is LocalInstallerState.Error -> "Installation Error"
-                        is LocalInstallerState.Idle -> if (isTermux) "Install Local Linux Tools" else "Install Ubuntu Container (ARM64)"
+                        is LocalInstallerState.Idle -> if (isTermux) "Install Local Linux Tools" else "Install Ubuntu Container (32-bit ARM)"
                         else -> "Setting Up Local Tools"
                     },
                     fontSize = 19.sp,
@@ -152,7 +152,7 @@ fun LocalToolsInstallDialog(
 
                 Text(
                     text = when (installerState) {
-                        is LocalInstallerState.Success -> if (isTermux) "Termux-compatible shell, coreutils & toolchain are now active." else "Ubuntu ARM64 container, bash, glibc & AGY tools are ready."
+                        is LocalInstallerState.Success -> if (isTermux) "Termux-compatible shell, coreutils & toolchain are now active." else "Ubuntu 32-bit ARM container, bash, glibc & AGY tools are ready."
                         is LocalInstallerState.Error -> "Failed to configure local environment. You can retry below."
                         is LocalInstallerState.Idle -> if (isTermux) "Select how you would like to download and install the Termux rootfs:" else "Select how you would like to set up the Ubuntu Linux container for AntiGem:"
                         else -> "Downloading and unpacking native Linux toolchain inside your app sandbox."
@@ -310,7 +310,7 @@ fun LocalToolsInstallDialog(
                                 ) {
                                     Column(modifier = Modifier.padding(12.dp)) {
                                         Text(
-                                            text = "Ubuntu Linux Container (PRoot ARM64)",
+                                            text = "Ubuntu Linux Container (PRoot 32-bit ARM)",
                                             fontSize = 12.5.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.primary
@@ -352,7 +352,7 @@ fun LocalToolsInstallDialog(
                                     Column(modifier = Modifier.weight(1f)) {
                                         Row(verticalAlignment = Alignment.CenterVertically) {
                                             Text(
-                                                text = if (isTermux) "Auto Download (GitHub)" else "Ubuntu ARM64 Base (Light)",
+                                                text = if (isTermux) "Auto Download (GitHub)" else "Ubuntu 32-bit ARM Base (Light)",
                                                 fontSize = 13.5.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 color = MaterialTheme.colorScheme.onSurface
@@ -371,7 +371,7 @@ fun LocalToolsInstallDialog(
                                             text = if (isTermux) {
                                                 "Auto-downloads verified AntiGem rootfs (~350MB) with preconfigured tools and environment"
                                             } else {
-                                                "Downloads official minimal Ubuntu ARM64 container rootfs with glibc, bash, and development tools"
+                                                "Downloads official minimal Ubuntu 32-bit ARM container rootfs with glibc, bash, and development tools"
                                             },
                                             fontSize = 11.5.sp,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant
