@@ -1867,7 +1867,8 @@ object LocalEnvironmentManager {
         glibcEtc.mkdirs()
         val glibcNsswitch = File(glibcEtc, "nsswitch.conf")
         if (!glibcNsswitch.exists()) {
-            glibcNsswitch.writeText("hosts: files dns\nnetworks: files\nprotocols: files\nservices: files\n")
+            glibcEtc.mkdirs()
+        glibcNsswitch.writeText("hosts: files dns\nnetworks: files\nprotocols: files\nservices: files\n")
         }
 
         val etcResolv = File(getEtcDir(context), "resolv.conf")
@@ -2226,6 +2227,7 @@ export LC_ALL="en_US.UTF-8"
         val glibcEtc = File(glibcDir, "etc")
         glibcEtc.mkdirs()
         val glibcNsswitch = File(glibcEtc, "nsswitch.conf")
+        glibcEtc.mkdirs()
         glibcNsswitch.writeText("hosts: files dns\nnetworks: files\nprotocols: files\nservices: files\n")
 
         val glibcResolv = File(glibcEtc, "resolv.conf")
