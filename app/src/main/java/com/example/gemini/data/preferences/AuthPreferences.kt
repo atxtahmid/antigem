@@ -85,7 +85,7 @@ class AuthPreferences(private val context: Context) {
         const val DEFAULT_BRIDGE_BINARY_PATH = "~/../usr/bin/agy_ide_bridge"
         const val DEFAULT_UBUNTU_BRIDGE_BINARY_PATH = "/antigem/bin/agy_ide_bridge"
         const val DEFAULT_AGY_BINARY_PATH = "~/.local/bin/agy"
-        const val DEFAULT_UBUNTU_AGY_BINARY_PATH = "/root/.local/bin/agy"
+        const val DEFAULT_UBUNTU_AGY_BINARY_PATH = "/root/bridge/start_bridge.sh"
         /** The app's Claude Code launcher (glibc loader); Claude's updater never touches it. */
         const val DEFAULT_CLAUDE_BINARY_PATH = "~/../usr/bin/claude"
         const val DEFAULT_UBUNTU_CLAUDE_BINARY_PATH = "/root/.local/bin/claude"
