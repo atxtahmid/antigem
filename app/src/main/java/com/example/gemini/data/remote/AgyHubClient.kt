@@ -103,7 +103,7 @@ class AgyHubClient {
         val isOffline: Boolean = false
     )
 
-    suspend fun login(hubUrl: String = AuthPreferences.currentHubUrl): Result<Unit> =
+    suspend fun login(hubUrl: String = AuthPreferences.currentHubUrl): Result<String> =
         authService.login(hubUrl)
 
     suspend fun authLogout(hubUrl: String = AuthPreferences.currentHubUrl): Result<Unit> =

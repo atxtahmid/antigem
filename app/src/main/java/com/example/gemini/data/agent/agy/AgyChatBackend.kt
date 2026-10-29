@@ -361,7 +361,18 @@ class AgyChatBackend(
             // 2. Kick off login RPC on daemon (Login RPC opens browser / triggers auth flow)
             launch {
                 try {
-                    agyHubClient.login(hubUrl)
+                    val loginResult = agyHubClient.login(hubUrl)
+                    loginResult.onSuccess { url ->
+                        if (url.isNotEmpty()) {
+                            try {
+                                val intent = android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url))
+                                intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                                application.startActivity(intent)
+                            } catch (e: Exception) {
+                                android.util.Log.e("ChatViewModel", "Failed to open browser")
+                            }
+                        }
+                    }
                 } catch (e: Exception) {
                     android.util.Log.d("ChatViewModel", "Hub login RPC finished/interrupted: ${e.message}")
                 }

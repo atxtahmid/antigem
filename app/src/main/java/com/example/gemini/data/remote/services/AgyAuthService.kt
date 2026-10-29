@@ -13,19 +13,19 @@ import exa.language_server_pb.Metadata
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/**
- * Dedicated RPC service for authentication, OAuth status, and detailed user profile queries.
- * Uses typed Square Wire AgyLanguageService gRPC client.
- */
 class AgyAuthService {
     companion object {
         private const val TAG = "AgyAuthService"
         val instance by lazy { AgyAuthService() }
     }
 
-    suspend fun login(hubUrl: String = AuthPreferences.currentHubUrl): Result<Unit> = withContext(Dispatchers.IO) {
+    suspend fun login(hubUrl: String = AuthPreferences.currentHubUrl): Result<String> = withContext(Dispatchers.IO) {
         val req = LoginRequest(is_gcp_tos = false)
-        AgyLanguageService.Login().executeSafely(req).map { }
+        AgyLanguageService.Login().executeSafely(req).map { res ->
+            val authUrl = res.auth_result?.headless_auth_required?.auth_url ?: ""
+            val uiMsg = res.auth_result?.ui_message ?: ""
+            if (authUrl.isNotBlank()) authUrl else uiMsg
+        }
     }
 
     suspend fun authLogout(hubUrl: String = AuthPreferences.currentHubUrl): Result<Unit> = withContext(Dispatchers.IO) {
