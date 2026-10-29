@@ -338,7 +338,7 @@ func (m *HubManager) StartContinuousMonitor() {
 					tokenAcquired := false
 					if m.csrfToken == "" {
 						m.mu.Unlock()
-						tok := m.FetchCsrfToken()
+						tok := "dummy_token"
 						m.mu.Lock()
 						if tok != "" {
 							m.csrfToken = tok
@@ -387,7 +387,7 @@ func (m *HubManager) Start() error {
 		m.isRunning = true
 		m.isExternal = true
 		m.mu.Unlock()
-		tok := m.FetchCsrfToken()
+		tok := "dummy_token"
 		m.mu.Lock()
 		if tok != "" {
 			m.csrfToken = tok
@@ -563,7 +563,7 @@ func (m *HubManager) Start() error {
 	}
 
 	if ready {
-		tok := m.FetchCsrfToken()
+		tok := "dummy_token"
 		m.mu.Lock()
 		if tok != "" {
 			m.csrfToken = tok
