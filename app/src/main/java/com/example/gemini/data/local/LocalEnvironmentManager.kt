@@ -66,10 +66,10 @@ object LocalEnvironmentManager {
     const val HARDCODED_ROOTFS_ASSET = "bootrapz_2026-10-04.zip"
     const val HARDCODED_ROOTFS_SIZE_BYTES = 350 * 1024 * 1024L
 
-    const val UBUNTU_ROOTFS_URL = "https://github.com/termux/proot-distro/releases/download/v4.30.1/ubuntu-questing-armhf-pd-v4.30.1.tar.xz"
+    const val UBUNTU_ROOTFS_URL = ""
     const val UBUNTU_ROOTFS_TAG = "v4.30.1"
-    const val UBUNTU_ROOTFS_ASSET = "ubuntu-questing-armhf-pd-v4.30.1.tar.xz"
-    const val UBUNTU_ROOTFS_SIZE_BYTES = 35 * 1024 * 1024L
+    const val UBUNTU_ROOTFS_ASSET = "bootstrap.zip"
+    const val UBUNTU_ROOTFS_SIZE_BYTES = 45 * 1024 * 1024L
 
     private const val NOTIFICATION_CHANNEL_ID = "antigem_bootstrap_install"
     private const val NOTIFICATION_ID = 4096
@@ -1902,6 +1902,8 @@ object LocalEnvironmentManager {
         }
 
         val etcResolv = File(getEtcDir(context), "resolv.conf")
+        etcResolv.parentFile?.mkdirs()
+        glibcEtc.mkdirs()
         val glibcResolv = File(glibcEtc, "resolv.conf")
         if (!glibcResolv.exists() && !isSymlink(glibcResolv)) {
             try {
