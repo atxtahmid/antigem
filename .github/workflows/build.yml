@@ -19,19 +19,20 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.23'
+          go-version: '1.26'
 
       - name: Patch Go runtime for 32-bit Android
         run: |
           GOROOT=$(go env GOROOT)
           echo "Patching GOROOT: $GOROOT"
           cd $GOROOT/src/runtime
+          
+          # Apply the fix for futex() and timer_settime()
           sed -i 's/if !isFutexTime32bitOnly.Load() {/if GOOS != "android" \&\& !isFutexTime32bitOnly.Load() {/' os_linux32.go
           sed -i 's/if !isSetTime32bitOnly.Load() {/if GOOS != "android" \&\& !isSetTime32bitOnly.Load() {/' os_linux32.go
           
-          # Recompile the standard library for Android/ARM with the patch applied
-          cd $GOROOT/src
-          GOOS=android GOARCH=arm GOARM=7 go install std
+          # Verify the patch
+          grep -n "GOOS != \"android\"" os_linux32.go
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
