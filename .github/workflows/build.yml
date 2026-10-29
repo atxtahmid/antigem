@@ -27,12 +27,11 @@ jobs:
           echo "Patching GOROOT: $GOROOT"
           cd $GOROOT/src/runtime
           
-          # Apply the fix for futex() and timer_settime()
-          sed -i 's/if !isFutexTime32bitOnly.Load() {/if GOOS != "android" \&\& !isFutexTime32bitOnly.Load() {/' os_linux32.go
-          sed -i 's/if !isSetTime32bitOnly.Load() {/if GOOS != "android" \&\& !isSetTime32bitOnly.Load() {/' os_linux32.go
+          # Patch the assembly file to use the standard futex syscall instead of futex_time64
+          sed -i 's/SYS_futex_time64/SYS_futex/g' sys_linux_arm.s
           
           # Verify the patch
-          grep -n "GOOS != \"android\"" os_linux32.go
+          grep -n "SYS_futex" sys_linux_arm.s
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
