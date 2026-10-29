@@ -66,7 +66,7 @@ object LocalEnvironmentManager {
     const val HARDCODED_ROOTFS_ASSET = "bootrapz_2026-10-04.zip"
     const val HARDCODED_ROOTFS_SIZE_BYTES = 350 * 1024 * 1024L
 
-    const val UBUNTU_ROOTFS_URL = ""
+    const val UBUNTU_ROOTFS_URL = "https://github.com/atxtahmid/antigem/releases/download/v32-rootfs/bootstrap.zip"
     const val UBUNTU_ROOTFS_TAG = "v4.30.1"
     const val UBUNTU_ROOTFS_ASSET = "bootstrap.zip"
     const val UBUNTU_ROOTFS_SIZE_BYTES = 45 * 1024 * 1024L
