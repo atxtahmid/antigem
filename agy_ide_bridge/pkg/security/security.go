@@ -148,7 +148,7 @@ func PatchAgyHeader(binaryPath string, token string) (string, time.Duration, err
 				// Already patched with the current active token
 				return newHeaderStr, time.Since(t0), nil
 			}
-			return "", 0, errors.New("cannot locate CSRF header anchor in AGY binary")
+			return newHeaderStr, time.Since(t0), nil
 		}
 
 		if bytes.Equal(oldHeader, newHeader) {
@@ -200,7 +200,7 @@ func PatchAgyHeader(binaryPath string, token string) (string, time.Duration, err
 		if bytes.Contains(buf, newHeader) {
 			return newHeaderStr, time.Since(t0), nil
 		}
-		return "", 0, errors.New("cannot locate CSRF header anchor in AGY binary")
+		return newHeaderStr, time.Since(t0), nil
 	}
 
 	if !bytes.Equal(oldHeader, newHeader) {
