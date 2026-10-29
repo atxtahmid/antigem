@@ -243,7 +243,37 @@ object LocalEnvironmentManager {
             Log.w(TAG, "Failed extracting talloc from assets: ${e.message}")
         }
 
-        if (prootBin.exists() && prootBin.length() > 0L) {
+        val shmemLib = File(libDir, "libandroid-shmem.so")
+        val shmemBin = File(binDir, "libandroid-shmem.so")
+        try {
+            if (!shmemLib.exists() || shmemLib.length() < 1000L) {
+                val assetStream = try {
+                    context.assets.open("lib/libandroid-shmem.so")
+                } catch (_: Exception) {
+                    context.assets.open("bin/libandroid-shmem.so")
+                }
+                assetStream.use { input ->
+                    FileOutputStream(shmemLib).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                shmemLib.setReadable(true, false)
+                try { Os.chmod(shmemLib.absolutePath, 493) } catch (_: Exception) {}
+            }
+            if (!shmemBin.exists() || shmemBin.length() < 1000L) {
+                if (shmemLib.exists()) {
+                    try {
+                        shmemLib.copyTo(shmemBin, overwrite = true)
+                        shmemBin.setReadable(true, false)
+                        try { Os.chmod(shmemBin.absolutePath, 493) } catch (_: Exception) {}
+                    } catch (_: Exception) {}
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed extracting shmem from assets: ${e.message}")
+        }
+
+                if (prootBin.exists() && prootBin.length() > 0L) {
             prootBin.setExecutable(true, false)
             prootBin.setReadable(true, false)
             try { Os.chmod(prootBin.absolutePath, 493) } catch (_: Exception) {}
