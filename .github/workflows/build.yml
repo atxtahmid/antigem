@@ -21,14 +21,24 @@ jobs:
         with:
           go-version: '1.23'
 
+      - name: Patch Go runtime for 32-bit Android
+        run: |
+          GOROOT=$(go env GOROOT)
+          echo "Patching GOROOT: $GOROOT"
+          cd $GOROOT/src/runtime
+          sed -i 's/if !isFutexTime32bitOnly.Load() {/if GOOS != "android" \&\& !isFutexTime32bitOnly.Load() {/' os_linux32.go
+          sed -i 's/if !isSetTime32bitOnly.Load() {/if GOOS != "android" \&\& !isSetTime32bitOnly.Load() {/' os_linux32.go
+          
+          # Recompile the standard library for Android/ARM with the patch applied
+          cd $GOROOT/src
+          GOOS=android GOARCH=arm GOARM=7 go install std
+
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
           ndk-version: r26b
 
-      # This step ensures the Android NDK compiler is in the system PATH 
-      # so Go can find the 'armv7a-linux-androideabi24-clang' command
       - name: Add NDK to PATH
         run: |
           echo "${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin" >> $GITHUB_PATH
